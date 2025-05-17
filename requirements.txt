@@ -7,3 +7,5 @@ pyvis
 streamlit
 tqdm
 psutil
+osmnx
+pyvis
