@@ -1,0 +1,5 @@
+algorithm: "dijkstra"
+graph_type: "random"
+num_nodes: 100
+start_node: 0
+end_node: 99
