@@ -8,4 +8,4 @@ streamlit
 tqdm
 psutil
 osmnx
-pyvis
+scipy
