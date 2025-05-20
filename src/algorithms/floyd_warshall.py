@@ -13,14 +13,14 @@ def shortest_path(graph, start, end):
         tuple: (path, cost) where path is a list of nodes and cost is the total path cost
     """
     try:
-        # Get predecessor matrix and distance matrix
+        
         pred, dist = nx.floyd_warshall_predecessor_and_distance(graph, weight='weight')
         
-        # Check if end is reachable from start
+        
         if end not in dist[start]:
             return None, float('inf')
             
-        # Try to use nx.reconstruct_path if available
+        
         try:
             path = nx.reconstruct_path(start, end, pred)
         except Exception:

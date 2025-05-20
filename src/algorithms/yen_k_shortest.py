@@ -17,10 +17,10 @@ def shortest_path(graph, start, end, k=1):
     """
     paths_with_cost = []
     try:
-        # nx.shortest_simple_paths returns an iterator
+        
         paths_iterator = nx.shortest_simple_paths(graph, start, end, weight='weight')
         
-        # Get the first k paths from the iterator
+        
         for i, path in enumerate(paths_iterator):
             if i >= k:
                 break
@@ -29,17 +29,10 @@ def shortest_path(graph, start, end, k=1):
             paths_with_cost.append((path, cost))
             
     except (nx.NetworkXNoPath, nx.NodeNotFound):
-        # No paths found between start and end
-        pass # paths_with_cost will be empty
         
-    # Ensure we return exactly k paths if found, otherwise return all found paths.
-    # The test checks the length against k, so we should return up to k paths.
-    # However, the test's current structure expects a list of paths, not (path, cost) tuples in the list.
-    # Let's return just the list of paths for now to match the test structure, 
-    # and we can refine the test later if needed.
+        pass 
+        
     
-    # Re-reading the test, it seems it expects a list of *paths*, and then calculates the cost itself for checking.
-    # Let's return a list of paths directly from the iterator up to k.
     
     paths = []
     try:
@@ -49,6 +42,6 @@ def shortest_path(graph, start, end, k=1):
                 break
             paths.append(path)
     except (nx.NetworkXNoPath, nx.NodeNotFound):
-        pass # paths will be empty
+        pass 
         
     return paths

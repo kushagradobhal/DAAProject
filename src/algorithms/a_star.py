@@ -3,39 +3,18 @@ import networkx as nx
 import numpy as np
 
 def heuristic(a, b):
-    """
-    Calculate the heuristic value between two nodes.
-    For this implementation, we use the Euclidean distance between nodes.
-    
-    Args:
-        a: First node
-        b: Second node
-        
-    Returns:
-        float: Estimated distance between nodes
-    """
-    # If nodes have position attributes, use Euclidean distance
+
     if isinstance(a, (tuple, list)) and isinstance(b, (tuple, list)):
         return np.sqrt(sum((x - y) ** 2 for x, y in zip(a, b)))
-    # Default to 0 if no position information available
+    
     return 0
 
 def shortest_path(graph, start, end):
-    """
-    A* algorithm implementation for finding the shortest path between two nodes.
-    
-    Args:
-        graph: NetworkX graph object
-        start: Starting node
-        end: Target node
-        
-    Returns:
-        tuple: (path, cost) where path is a list of nodes and cost is the total path cost
-    """
-    open_set = [(0 + heuristic(start, end), 0, start, [])]  # (f_score, g_score, node, path)
+
+    open_set = [(0 + heuristic(start, end), 0, start, [])] 
     visited = set()
     
-    # For tracking the best known path to each node
+  
     g_score = {start: 0}
     
     while open_set:

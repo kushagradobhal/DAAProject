@@ -238,6 +238,14 @@ def main():
                     for key, value in stats.items():
                         st.sidebar.write(f"{key}: {value}")
     
+    # Random Graph Controls
+    if graph_type == "Random":
+        st.sidebar.subheader("Random Graph Options")
+        num_nodes = st.sidebar.slider("Number of nodes", 10, 100, 50)
+        edge_prob = st.sidebar.slider("Edge probability", 0.01, 1.0, 0.1, 0.01)
+        random_weighted = st.sidebar.checkbox("Weighted", value=True)
+        random_directed = st.sidebar.checkbox("Directed", value=False)
+
     # Algorithm selection
     algorithms = {
         "Dijkstra's": dijkstra.shortest_path,
@@ -264,12 +272,15 @@ def main():
             st.session_state.graph = negative_weight_graph()
         elif graph_type == "Disconnected":
             st.session_state.graph = disconnected_graph()
-        else:
-            # Random graph generation logic here
-            pass
-        
+        elif graph_type == "Random": # Add the random graph generation here
+            st.session_state.graph = nx.erdos_renyi_graph(n=num_nodes, p=edge_prob, directed=random_directed)
+            if random_weighted:
+                for u, v in st.session_state.graph.edges():
+                    st.session_state.graph.edges[u,v]['weight'] = np.random.rand()
+
         # Select random start and end nodes
         st.session_state.start_node, st.session_state.end_node = select_random_nodes(st.session_state.graph)
+        st.sidebar.write(f"Selected random nodes: {st.session_state.start_node} -> {st.session_state.end_node}")
     
     # Node selection for road networks and uploaded CSVs (if graph loaded)
     if (graph_type == "Road Network" or graph_type == "Upload CSV") and st.session_state.graph:
